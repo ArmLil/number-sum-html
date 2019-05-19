@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Task1</title>
+    <style>
+      body {
+        margin-left: 50px;
+        margin-top: 30px;
+      }
+      input {
+        margin: 10px;
+        margin-bottom: 20px;
+        width: 200px;
+      }
+
+      #calcForm {
+        width: 250px;
+        border: 2px solid blue;
+        margin-top: 15px;
+        padding: 15px;
+      }
+
+      #result {
+        display: flex;
+      }
+
+      #button {
+        width: 100px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2 id="result">Найти сумму</h2>
+
+    <form id="calcForm">
+      Первое число: <br />
+      <input
+        type="text"
+        name="num1"
+        value="0.1"
+        onkeypress="handleKeydown()"
+        onkeyup="handleKeyup()"
+        autocomplete="off"
+      /><br />
+      Второе число: <br />
+      <input
+        type="text"
+        name="num2"
+        value="0.2"
+        onkeydown="handleKeydown()"
+        onkeyup="handleKeyup()"
+        autocomplete="off"
+      /><br />
+      <input type="button" value="Сложить" id="button" onclick="calcSum()" />
+    </form>
+
+    <div id="result">
+      <p>Вывод: &nbsp;</p>
+      <p id="sum"></p>
+    </div>
+
+    <script>
+
+    function restrictNumberIntput(number) {
+      let result = number
+      .replace(',', '.')
+      .replace(/^\./, '0.')
+      .replace(/[^\d\.]/g, "")
+      .replace(/\./, "x")
+      .replace(/\./g, "")
+      .replace(/x/, ".");
+      if (result.length > 10) {
+        result = result.slice(0, 10);
+      }
+      return result;
+    }
+      function handleKeydown() {
+        let { value } = event.target;
+        event.target.value = restrictNumberIntput(value)
+      }
+
+      function handleKeyup() {
+        var { value } = event.target;
+        event.target.value = restrictNumberIntput(value)
+      }
+
+
+      function calcSum() {
+        let num1 = document.getElementsByName("num1")[0].value;
+        let num2 = document.getElementsByName("num2")[0].value;
+        let sum = parseFloat((Number(num1) + Number(num2)).toFixed(1));
+        document.getElementById("sum").innerHTML = sum;
+      }
+    </script>
+  </body>
+</html>
